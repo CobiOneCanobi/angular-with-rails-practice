@@ -10,9 +10,14 @@ class CommentsController < ApplicationController
   def upvote
     post = Post.find(params[:post_id])
     comment = post.comments.find(params[:id])
-    comment.increment!(:upvotes)
-
-    respond_with post, comment
+    upvote = Upvote.where(user_id: current_user.id, comment_id: comment.id)
+    if upvote == []
+      comment.increment!(:upvotes)
+      Upvote.create(user_id: current_user.id, comment_id: comment.id)
+      respond_with post, comment
+    else
+      render json: { error: 1}
+    end
   end
 
   private

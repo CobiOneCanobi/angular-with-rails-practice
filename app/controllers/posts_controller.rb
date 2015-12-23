@@ -14,9 +14,14 @@ class PostsController < ApplicationController
 
   def upvote
     post = Post.find(params[:id])
-    post.increment!(:upvotes)
-
-    respond_with post
+    upvote = Upvote.where(user_id: current_user.id, post_id: post.id)
+    if upvote == []
+      post.increment!(:upvotes)
+      Upvote.create(user_id: current_user.id, post_id: post.id)
+      respond_with post
+    else
+      render json: { error: 1}
+    end
   end
 
   private
