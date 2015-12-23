@@ -16,7 +16,8 @@ class CommentsController < ApplicationController
       Upvote.create(user_id: current_user.id, comment_id: comment.id)
       respond_with post, comment
     else
-      render json: { error: 1}
+      upvote.delete_all
+      render json: { upvoted: 1}
     end
   end
 

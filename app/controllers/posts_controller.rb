@@ -20,7 +20,8 @@ class PostsController < ApplicationController
       Upvote.create(user_id: current_user.id, post_id: post.id)
       respond_with post
     else
-      render json: { error: 1}
+      upvote.delete_all
+      render json: { upvoted: 1}
     end
   end
 
