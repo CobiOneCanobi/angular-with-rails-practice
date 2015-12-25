@@ -15,4 +15,9 @@ angular.module('flapperNews')
     $scope.incrementUpvotes = function(post){
       posts.upvote(post);
     };
+
+    $scope.predicate = '-upvotes';
+    $scope.order = function(predicate){
+      $scope.predicate = predicate;
+    };
 }]);

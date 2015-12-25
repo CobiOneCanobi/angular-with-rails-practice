@@ -5,11 +5,13 @@ class PostsController < ApplicationController
   end
 
   def create
-    respond_with Post.create(post_params.merge(user_id: current_user.id))
+    respond_with Post.create(post_params.merge(user_id: current_user.id).merge(viewed: 0).merge(upvotes: 0))
   end
 
   def show
-    respond_with Post.find(params[:id])
+    post = Post.find(params[:id])
+    post.increment!(:viewed)
+    respond_with post
   end
 
   def upvote
