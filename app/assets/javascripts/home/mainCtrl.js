@@ -5,11 +5,14 @@ angular.module('flapperNews')
     $scope.posts = posts.posts;
     $scope.addPost = function(){
       if(!$scope.title || $scope.title === '') { return; }
+      if(!$scope.body || $scope.body === '') { return; }
         posts.create({
         title: $scope.title,
-        link: $scope.link,
+        body: $scope.body,
+        link: $scope.link
       });
       $scope.title = '';
+      $scope.body = '';
       $scope.link = '';
     };
     $scope.incrementUpvotes = function(post){

@@ -7,6 +7,7 @@
         {{post.title}}
       </span>
     </h3>
+    {{post.body}}
   </div>
 
   <div ng-repeat="comment in post.comments | orderBy:'-upvotes'">
