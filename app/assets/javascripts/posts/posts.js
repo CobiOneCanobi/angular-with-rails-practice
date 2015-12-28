@@ -1,11 +1,13 @@
 angular.module('flapperNews')
 .factory('posts', ['$http', function($http){
   var o = {
-    posts: []
+    posts: [],
+    upvotes: []
   };
   o.getAll = function() {
     return $http.get('/posts.json').success(function(data){
-      angular.copy(data, o.posts);
+      angular.copy(data.posts, o.posts);
+      angular.copy(data.upvotes, o.upvotes)
     });
   };
   o.create = function(post){

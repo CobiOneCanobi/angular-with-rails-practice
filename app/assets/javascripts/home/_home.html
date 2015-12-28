@@ -1,4 +1,8 @@
-
+<style type="text/css">
+  .upvoted{
+    padding: 50px;
+  }
+</style>
         <div class="page-header">
           <h1>Flapper News</h1>
         </div>
@@ -12,9 +16,9 @@
         <button ng-click=order('-created_at')>Newest</button>
 
         <div ng-repeat="post in posts | filter:query | orderBy:predicate">
-          <span class="glyphicon glyphicon-thumbs-up"
-          ng-click="incrementUpvotes(post)"></span>
-          {{post.upvotes}}
+          <span ng-class='hasUpvoted(post)'
+            ng-click="incrementUpvotes(post)"></span>
+            {{post.upvotes}}
           <span style="font-size:20px; margin-left:10px;">
             <a ng-show="post.link" href="{{post.link}}">
               {{post.title}}

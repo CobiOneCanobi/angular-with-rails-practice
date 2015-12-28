@@ -1,7 +1,10 @@
 class PostsController < ApplicationController
   before_filter :authenticate_user!, only: [:create, :upvote]
   def index
-    respond_with Post.all
+    posts = Post.all
+    upvotes = Upvote.where(user_id: current_user.id)
+    response = {posts: posts, upvotes: upvotes}
+    respond_with response
   end
 
   def create
