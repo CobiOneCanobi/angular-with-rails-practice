@@ -26,6 +26,7 @@ class PostsController < ApplicationController
       respond_with post
     else
       upvote.delete_all
+      post.decrement!(:upvotes)
       render json: { upvoted: 1}
     end
   end

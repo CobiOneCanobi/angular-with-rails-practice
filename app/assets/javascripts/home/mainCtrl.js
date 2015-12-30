@@ -3,8 +3,6 @@ angular.module('flapperNews')
   '$scope', 'posts',
   function($scope, posts){
     $scope.posts = posts.posts;
-    $scope.upvotes = posts.upvotes
-    var upvotes = posts.upvotes;
     $scope.addPost = function(){
       if(!$scope.title || $scope.title === '') { return; }
       if(!$scope.body || $scope.body === '') { return; }
@@ -19,6 +17,7 @@ angular.module('flapperNews')
     };
     $scope.incrementUpvotes = function(post){
       posts.upvote(post);
+      post.toggled = !post.toggled;
     };
 
     $scope.predicate = '-upvotes';
@@ -26,18 +25,7 @@ angular.module('flapperNews')
       $scope.predicate = predicate;
     };
 
-    $scope.hasUpvoted = function(post){
-      var done = 0;
-      angular.forEach(upvotes, function(upvote, key){
-        if (upvote.post_id == post.id) {
-          done =1;
-          return;
-        }
-      });
-      if (done == 1) {
-        return "upvoted";
-      }else{
-        return "glyphicon glyphicon-thumbs-up";
-      }
-    };
+    $scope.checkUpvoted = function(post){
+      return posts.hasUpvoted(post);
+    }
 }]);

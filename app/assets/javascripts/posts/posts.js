@@ -15,6 +15,23 @@ angular.module('flapperNews')
       o.posts.push(data);
     });
   };
+
+
+  o.hasUpvoted = function(post) {
+      var done = 0;
+      angular.forEach(o.upvotes, function(upvote, key){
+        if (upvote.post_id == post.id) {
+          done = 1;
+          return;
+        }
+      });
+      if (done == 1) {
+        return 1;
+      }else{
+        return 0;
+      }
+  };
+
   o.upvote = function(post) {
     return $http.put('/posts/' + post.id + '/upvote.json').success(function(data){
       if (data.upvoted != 1) {
